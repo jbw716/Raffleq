@@ -88,11 +88,12 @@
         const deleteParent = (event) => {
             const button = event.target;
             const parent = button.parentElement;
-            const name = parent.querySelector('#name').innerText;
+            const grandParent = parent.parentElement;
+            const name = grandParent.querySelector('#name').innerText;
             if (confirm(`Are you sure you want to remove ${name}?`)) {
                 const index = participants.findIndex((item) => item.name === name);
                 participants.splice(index, 1);
-                parent.remove();
+                grandParent.remove();
                 saveParticipants();
                 console.log(participants);
             }
@@ -102,7 +103,8 @@
             const button = event.target;
             const parent = button.parentElement;
             const grandParent = parent.parentElement;
-            const name = grandParent.querySelector('#name').innerText;
+            const greatGrandParent = grandParent.parentElement;
+            const name = greatGrandParent.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             if (participants[index].entries > 0) {
                 participants[index].entries--;
@@ -116,7 +118,8 @@
             const button = event.target;
             const parent = button.parentElement;
             const grandParent = parent.parentElement;
-            const name = grandParent.querySelector('#name').innerText;
+            const greatGrandParent = grandParent.parentElement;
+            const name = greatGrandParent.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries++;
             parent.querySelector('input').value = participants[index].entries;
@@ -128,7 +131,8 @@
             const input = event.target;
             const parent = input.parentElement;
             const grandParent = parent.parentElement;
-            const name = grandParent.querySelector('#name').innerText;
+            const greatGrandParent = grandParent.parentElement;
+            const name = greatGrandParent.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries = parseInt(input.value);
             saveParticipants();
@@ -159,6 +163,7 @@
             const listItem = template.content.cloneNode(true);
             const listGroupItem = listItem.querySelector('.list-group-item');
             listGroupItem.querySelector('#name').innerText = name;
+            listGroupItem.querySelector('input').value = entries;
 
             list.appendChild(listItem);
             saveParticipants();
