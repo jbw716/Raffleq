@@ -16,6 +16,12 @@
         .col>.input-group {
             max-width: 500px;
         }
+
+        #winner {
+            font-size: 3em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
@@ -42,7 +48,13 @@
         </div>
         <div class="row mb-3 justify-content-center text-center">
             <div class="col">
-                <button class="btn btn-primary" type="button" onclick="pickAWinner()">Pick a winner</button>
+                <!-- <button class="btn btn-primary" type="button" onclick="pickAnInstantWinner()">Pick a winner</button> -->
+                <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a winner</button>
+            </div>
+        </div>
+        <div class="row mb-3 justify-content-center text-center">
+            <div class="col" id="winner">
+
             </div>
         </div>
         <div class="row justify-content-center">
@@ -191,7 +203,7 @@
             }
         };
 
-        const pickAWinner = () => {
+        const pickAnInstantWinner = () => {
             const totalEntries = participants.reduce((total, participant) => {
                 return total + participant.entries;
             }, 0);
@@ -204,6 +216,33 @@
                     break;
                 }
             }
+        }
+
+        const pickAScrollingWinner = (i = 0) => {
+            setTimeout(() => {
+                console.log(i * 100);
+                const totalEntries = participants.reduce((total, participant) => {
+                    return total + participant.entries;
+                }, 0);
+                const winningNumber = Math.floor(Math.random() * totalEntries);
+                let currentTotal = 0;
+                for (const participant of participants) {
+                    currentTotal += participant.entries;
+                    if (currentTotal > winningNumber) {
+                        const winner = document.querySelector('#winner');
+                        winner.innerText = participant.name;
+                        if (i === 99) {
+                            winner.style.color = 'green';
+                            setTimeout(() => alert(`${participant.name} is the winner!`));
+                        }
+                        break;
+                    }
+                }
+                if (i < 99) {
+                    pickAScrollingWinner(i + 1);
+                }
+            }, i);
+
         }
 
         const saveParticipants = () => {
