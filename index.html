@@ -47,29 +47,81 @@
         const list = document.querySelector('.list-group');
         const reset = document.querySelector('.btn-outline-light');
 
-        const names = [];
+        const participants = [];
 
         const addName = () => {
             const name = input.value;
-            names.push(name);
+            participants.push({
+                name,
+                entries: 0
+            });
             input.value = '';
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item');
             listItem.innerText = name;
+
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('btn', 'btn-danger', 'float-end');
             deleteButton.innerText = 'Delete';
             deleteButton.addEventListener('click', () => {
                 if (confirm(`Are you sure you want to remove ${name}?`)) {
-                    const index = names.indexOf(name);
-                    names.splice(index, 1);
+                    const index = participants.findIndex((item) => item.name === name);
+                    participants.splice(index, 1);
                     listItem.remove();
-                    console.log(names);
+                    console.log(participants);
                 }
             });
             listItem.appendChild(deleteButton);
+
+            const inputGroup = document.createElement('div');
+            inputGroup.classList.add('input-group', 'float-end', 'me-2');
+
+
+            const minusButton = document.createElement('button');
+            minusButton.classList.add('btn', 'btn-danger');
+            minusButton.innerText = '-';
+            minusButton.addEventListener('click', () => {
+                console.log('Clicked minus');
+                const index = participants.findIndex((item) => item.name === name);
+                if (participants[index].entries > 0) {
+                    participants[index].entries--;
+                    updateEntries();
+                }
+            });
+            inputGroup.appendChild(minusButton);
+
+            const entriesInput = document.createElement('input');
+            entriesInput.classList.add('form-control');
+            entriesInput.type = 'number';
+            entriesInput.value = 0;
+            entriesInput.addEventListener('change', () => {
+                const index = participants.findIndex((item) => item.name === name);
+                participants[index].entries = parseInt(entriesInput.value);
+            });
+            inputGroup.appendChild(entriesInput);
+            
+            const plusButton = document.createElement('button');
+            plusButton.classList.add('btn', 'btn-success');
+            plusButton.innerText = '+';
+            plusButton.addEventListener('click', () => {
+                console.log('Clicked plus');
+                const index = participants.findIndex((item) => item.name === name);
+                console.log(index);
+                console.log(participants[index]);
+                participants[index].entries++;
+                updateEntries();
+            });
+            inputGroup.appendChild(plusButton);
+
+            listItem.appendChild(inputGroup);
+
+            const updateEntries = () => {
+                const index = participants.findIndex((item) => item.name === name);
+                entriesInput.value = participants[index].entries;
+            };
+
             list.appendChild(listItem);
-            console.log(names);
+            console.log(participants);
         };
 
         button.addEventListener('click', addName);
@@ -83,7 +135,7 @@
         reset.addEventListener('click', () => {
             if (confirm('Are you sure you want to reset?')) {
                 list.innerHTML = '';
-                names.length = 0;
+                participants.length = 0;
             }
         });
     </script>
