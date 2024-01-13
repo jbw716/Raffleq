@@ -20,6 +20,11 @@
     </nav>
     <div class="container-fluid m-0 mt-4">
         <div class="row">
+            <div class="col">
+                <button class="btn btn-primary" type="button" onclick="pickAWinner()">Pick a winner</button>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-12 col-md-6">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Name" aria-label="Name"
@@ -98,7 +103,7 @@
                 participant.entries = parseInt(entriesInput.value);
             });
             inputGroup.appendChild(entriesInput);
-            
+
             const plusButton = document.createElement('button');
             plusButton.classList.add('btn', 'btn-success');
             plusButton.innerText = '+';
@@ -132,6 +137,22 @@
                 participants.length = 0;
             }
         });
+
+
+        const pickAWinner = () => {
+            const totalEntries = participants.reduce((total, participant) => {
+                return total + participant.entries;
+            }, 0);
+            const winningNumber = Math.floor(Math.random() * totalEntries);
+            let currentTotal = 0;
+            for (const participant of participants) {
+                currentTotal += participant.entries;
+                if (currentTotal > winningNumber) {
+                    alert(`${participant.name} is the winner!`);
+                    break;
+                }
+            }
+        }
     </script>
 </body>
 
