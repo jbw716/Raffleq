@@ -25,18 +25,19 @@
     </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-primary">
+<body class="d-flex flex-column vh-100 vw-100 overflow-hidden">
+    <nav style="flex: 0 0 auto;" class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
             <div class="navbar-brand text-light">Raffler</div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-light me-2" type="button" onclick="resetEntries()">Reset Entries</button>
+                <button class="btn btn-outline-light me-2" type="button" onclick="resetEntries()">Reset
+                    Entries</button>
                 <button class="btn btn-danger" type="button" onclick="resetRaffle()">Reset</button>
             </div>
         </div>
     </nav>
-    <div class="container-fluid m-0 mt-4">
-        <div class="row mb-3 justify-content-center text-center">
+    <div style="flex: 1 1 100%;" class="h-100 container-fluid m-0 mt-4 d-flex flex-column overflow-hidden">
+        <div style="flex: 0 0 auto;" class="row mb-3 justify-content-center text-center">
             <div class="col">
                 <div class="input-group mx-auto">
                     <input id="name-input" type="text" class="form-control" placeholder="Name" aria-label="Name"
@@ -46,18 +47,19 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-3 justify-content-center text-center">
+        <div style="flex: 0 0 auto;" class="row mb-3 justify-content-center text-center">
             <div class="col">
                 <!-- <button class="btn btn-primary" type="button" onclick="pickAnInstantWinner()">Pick a winner</button> -->
-                <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a winner</button>
+                <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a
+                    winner</button>
             </div>
         </div>
-        <div class="row mb-3 justify-content-center text-center">
+        <div style="flex: 0 0 auto;" class="row mb-3 justify-content-center text-center">
             <div class="col" id="winner">
 
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div style="flex: 1 1 100%;" class="row justify-content-center overflow-scroll">
             <div class="col">
                 <ul class="list-group">
                     <!-- List items will be dynamically added here -->
@@ -67,17 +69,26 @@
     </div>
 
     <template id="list-item-template">
-        <li class="list-group-item d-flex flex-wrap justify-content-between align-items-center">
-            <div id="name" class="me-5">
-                <!-- Name will be dynamically added here -->
-            </div>
-            <div class="d-flex" style="flex: 1 1 auto; max-width: 25em;">
-                <div class="input-group me-2">
-                    <button id="subtract" class="btn btn-danger" onclick="subtractEntry(event)">-</button>
-                    <input type="number" class="form-control" value="0" onchange="changeEntry(event)">
-                    <button id="add" class="btn btn-success" onclick="addEntry(event)">+</button>
+        <li class="list-group-item">
+            <div class="container-fluid p-0">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-12 col-sm-4">
+                        <div id="name" class="me-5">
+                            <!-- Name will be dynamically added here -->
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <div class="d-flex ms-auto" style="max-width: 25em;">
+                            <div class="input-group me-2">
+                                <button id="subtract" class="btn btn-danger" onclick="subtractEntry(event)">-</button>
+                                <input type="number" class="form-control" value="0" onchange="changeEntry(event)">
+                                <button id="add" class="btn btn-success" onclick="addEntry(event)">+</button>
+                            </div>
+                            <button id="delete" class="btn btn-danger" onclick="deleteParent(event)">Delete</button>
+                        </div>
+                    </div>
                 </div>
-                <button id="delete" class="btn btn-danger" onclick="deleteParent(event)">Delete</button>
+            </div>
             </div>
         </li>
     </template>
