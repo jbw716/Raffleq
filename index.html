@@ -75,6 +75,7 @@
     <script>
         const participants = [];
 
+        const list = document.querySelector('.list-group');
         const nameInput = document.querySelector('#name-input');
         nameInput.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') {
@@ -90,6 +91,7 @@
                 const index = participants.findIndex((item) => item.name === name);
                 participants.splice(index, 1);
                 parent.remove();
+                saveParticipants();
                 console.log(participants);
             }
         }
@@ -103,6 +105,7 @@
             if (participants[index].entries > 0) {
                 participants[index].entries--;
                 parent.querySelector('input').value = participants[index].entries;
+                saveParticipants();
                 console.log(participants);
             }
         }
@@ -115,6 +118,7 @@
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries++;
             parent.querySelector('input').value = participants[index].entries;
+            saveParticipants();
             console.log(participants);
         }
 
@@ -125,11 +129,14 @@
             const name = grandParent.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries = parseInt(input.value);
+            saveParticipants();
             console.log(participants);
         }
 
-        const addParticipant = () => {
-            const name = nameInput.value;
+        const addParticipant = (name = null, entries = 0) => {
+            if (name === null) {
+                name = nameInput.value;
+            }
             if (name === '') {
                 alert('Please enter a name.');
                 return;
@@ -141,7 +148,7 @@
             }
             const participant = {
                 name,
-                entries: 0
+                entries
             };
             participants.push(participant);
             nameInput.value = '';
@@ -151,7 +158,8 @@
             const listGroupItem = listItem.querySelector('.list-group-item');
             listGroupItem.querySelector('#name').innerText = name;
 
-            document.querySelector('.list-group').appendChild(listItem);
+            list.appendChild(listItem);
+            saveParticipants();
             console.log(participants);
         };
 
@@ -159,6 +167,7 @@
             if (confirm('Are you sure you want to reset?')) {
                 list.innerHTML = '';
                 participants.length = 0;
+                saveParticipants();
             }
         };
 
@@ -171,6 +180,7 @@
                 for (const entriesInput of entriesInputs) {
                     entriesInput.value = 0;
                 }
+                saveParticipants();
             }
         };
 
@@ -188,6 +198,22 @@
                 }
             }
         }
+        
+        const saveParticipants = () => {
+            localStorage.setItem('participants', JSON.stringify(participants));
+        };
+
+        const loadParticipants = () => {
+            const participantsJSON = localStorage.getItem('participants');
+            if (participantsJSON !== null) {
+                const participantsArray = JSON.parse(participantsJSON);
+                for (const participant of participantsArray) {
+                    addParticipant(participant.name, participant.entries);
+                }
+            }
+        };
+
+        loadParticipants();
     </script>
 </body>
 
