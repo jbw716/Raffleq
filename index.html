@@ -55,15 +55,17 @@
     </div>
 
     <template id="list-item-template">
-        <li class="list-group-item">
-            <span id="name">
+        <li class="list-group-item d-flex flex-wrap justify-content-between align-content-center">
+            <div id="name" class="me-5">
                 <!-- Name will be dynamically added here -->
-            </span>
-            <button id="delete" class="btn btn-danger float-end" onclick="deleteParent(event)">Delete</button>
-            <div class="input-group float-end me-2" style="width: unset; max-width: 100%;">
-                <button id="subtract" class="btn btn-danger" onclick="subtractEntry(event)">-</button>
-                <input type="number" class="form-control" value="0" onchange="changeEntry(event)">
-                <button id="add" class="btn btn-success" onclick="addEntry(event)">+</button>
+            </div>
+            <div class="d-flex" style="flex: 1 1 auto; max-width: 25em;">
+                <div class="input-group me-2">
+                    <button id="subtract" class="btn btn-danger" onclick="subtractEntry(event)">-</button>
+                    <input type="number" class="form-control" value="0" onchange="changeEntry(event)">
+                    <button id="add" class="btn btn-success" onclick="addEntry(event)">+</button>
+                </div>
+                <button id="delete" class="btn btn-danger" onclick="deleteParent(event)">Delete</button>
             </div>
         </li>
     </template>
@@ -198,7 +200,7 @@
                 }
             }
         }
-        
+
         const saveParticipants = () => {
             localStorage.setItem('participants', JSON.stringify(participants));
         };
