@@ -75,7 +75,8 @@
 
             const inputGroup = document.createElement('div');
             inputGroup.classList.add('input-group', 'float-end', 'me-2');
-
+            inputGroup.style.width = 'unset';
+            inputGroup.style.maxWidth = '100%';
 
             const minusButton = document.createElement('button');
             minusButton.classList.add('btn', 'btn-danger');
