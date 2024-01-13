@@ -7,13 +7,13 @@
     <title>Raffler</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+
     <style>
         .col {
             max-width: 750px;
         }
 
-        .col > .input-group {
+        .col>.input-group {
             max-width: 500px;
         }
     </style>
@@ -24,7 +24,6 @@
         <div class="container-fluid">
             <div class="navbar-brand text-light">Raffler</div>
             <div class="d-flex justify-content-end">
-                <!-- Add reset entries button -->
                 <button class="btn btn-outline-light me-2" type="button" onclick="resetEntries()">Reset Entries</button>
                 <button class="btn btn-danger" type="button" onclick="resetRaffle()">Reset</button>
             </div>
@@ -57,7 +56,9 @@
 
     <template id="list-item-template">
         <li class="list-group-item">
-            <span id="name"><!-- Name will be dynamically added here --></span>
+            <span id="name">
+                <!-- Name will be dynamically added here -->
+            </span>
             <button id="delete" class="btn btn-danger float-end" onclick="deleteParent(event)">Delete</button>
             <div class="input-group float-end me-2" style="width: unset; max-width: 100%;">
                 <button id="subtract" class="btn btn-danger" onclick="subtractEntry(event)">-</button>
