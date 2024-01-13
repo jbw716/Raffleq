@@ -51,10 +51,11 @@
 
         const addName = () => {
             const name = input.value;
-            participants.push({
+            const participant = {
                 name,
                 entries: 0
-            });
+            };
+            participants.push(participant);
             input.value = '';
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item');
@@ -82,10 +83,8 @@
             minusButton.classList.add('btn', 'btn-danger');
             minusButton.innerText = '-';
             minusButton.addEventListener('click', () => {
-                console.log('Clicked minus');
-                const index = participants.findIndex((item) => item.name === name);
-                if (participants[index].entries > 0) {
-                    participants[index].entries--;
+                if (participant.entries > 0) {
+                    participant.entries--;
                     updateEntries();
                 }
             });
@@ -96,8 +95,7 @@
             entriesInput.type = 'number';
             entriesInput.value = 0;
             entriesInput.addEventListener('change', () => {
-                const index = participants.findIndex((item) => item.name === name);
-                participants[index].entries = parseInt(entriesInput.value);
+                participant.entries = parseInt(entriesInput.value);
             });
             inputGroup.appendChild(entriesInput);
             
@@ -105,11 +103,7 @@
             plusButton.classList.add('btn', 'btn-success');
             plusButton.innerText = '+';
             plusButton.addEventListener('click', () => {
-                console.log('Clicked plus');
-                const index = participants.findIndex((item) => item.name === name);
-                console.log(index);
-                console.log(participants[index]);
-                participants[index].entries++;
+                participant.entries++;
                 updateEntries();
             });
             inputGroup.appendChild(plusButton);
@@ -117,8 +111,7 @@
             listItem.appendChild(inputGroup);
 
             const updateEntries = () => {
-                const index = participants.findIndex((item) => item.name === name);
-                entriesInput.value = participants[index].entries;
+                entriesInput.value = participant.entries;
             };
 
             list.appendChild(listItem);
