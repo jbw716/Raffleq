@@ -1,0 +1,16 @@
+{
+  "name": "Raffleq",
+  "short_name": "Raffleq",
+  "description": "(The 'q' is silent) Web App for running raffles with options for multiple entries per participant.",
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "32x32 48x48 72x72 96x96 128x128 256x256 512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "theme_color": "#0d6efd",
+  "background_color": "#0d6efd"
+}
