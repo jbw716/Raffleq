@@ -42,8 +42,7 @@
         <div class="container-fluid">
             <div class="d-flex align-items-center">
                 <div class="navbar-brand text-light me-1">Raffleq</div>
-                <button type="button" href="https://github.com/jbw716/Raffler" target="_blank" rel="noopener"
-                    class="m-0 p-2 fs-4 btn btn-primary">
+                <button type="button" class="m-0 p-2 fs-4 btn btn-primary" onclick="openGitHubLink()">
                     <i class="bi bi-github"></i>
                 </button>
                 <!-- Button trigger modal -->
@@ -152,6 +151,11 @@
         crossorigin="anonymous"></script>
 
     <script>
+        const openGitHubLink = () => {
+            window.open('https://github.com/jbw716/Raffler', '_blank', 'noopener,noreferrer');
+            if (newWindow) newWindow.opener = null;
+        };
+
         const participants = [];
 
         const list = document.querySelector('.list-group');
