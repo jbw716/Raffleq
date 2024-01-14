@@ -300,6 +300,7 @@
             // if all entries are 0, show alert and return
             if (participants.every((participant) => participant.entries === 0)) {
                 alert('All entries are 0.');
+                enableAllButtonsAndInputs();
                 return;
             }
             const winner = document.querySelector('#winner');
