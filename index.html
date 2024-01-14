@@ -81,7 +81,7 @@
                 <button class="btn btn-outline-light me-2" type="button" onclick="resetEntries()">
                     Reset Entries
                 </button>
-                <button class="btn btn-danger" type="button" onclick="resetRaffle()">
+                <button class="btn btn-danger" type="button" onclick="resetPrompt()">
                     Reset
                 </button>
             </div>
@@ -214,6 +214,7 @@
         }
 
         const addParticipant = (name = null, entries = 1) => {
+            name = name.trim();
             if (name === null) {
                 name = nameInput.value;
             }
@@ -244,13 +245,17 @@
             console.log(participants);
         };
 
-        const resetRaffle = () => {
+        const resetPrompt = () => {
             if (confirm('Are you sure you want to reset?')) {
-                list.innerHTML = '';
-                participants.length = 0;
-                saveParticipants();
+                resetRaffle();
             }
         };
+
+        const resetRaffle = () => {
+            list.innerHTML = '';
+            participants.length = 0;
+            saveParticipants();
+        }
 
         const resetEntries = () => {
             if (confirm('Are you sure you want to reset entries?')) {
@@ -362,6 +367,12 @@
         };
 
         const importData = () => {
+            if (participants.length > 0) {
+                if (!confirm('Are you sure you want to import data? This will overwrite your current data.')) {
+                    return;
+                }
+            }
+            resetRaffle();
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'application/json';
