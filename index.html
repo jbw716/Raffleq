@@ -51,6 +51,12 @@
     </nav>
     <div class="flex-1-1-100 h-100 container-fluid m-0 mt-4 d-flex flex-column overflow-hidden">
         <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
+            <div class="col text-center">
+                <button class="btn btn-outline-primary me-2" type="button" onclick="importData()">Import</button>
+                <button class="btn btn-outline-primary me-2" type="button" onclick="exportData()">Export</button>
+            </div>
+        </div>
+        <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
             <div class="col">
                 <div class="input-group mx-auto">
                     <input id="name-input" type="text" class="form-control" placeholder="Name" aria-label="Name"
@@ -63,8 +69,7 @@
         <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
             <div class="col">
                 <!-- <button class="btn btn-primary" type="button" onclick="pickAnInstantWinner()">Pick a winner</button> -->
-                <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a
-                    winner</button>
+                <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a winner</button>
             </div>
         </div>
         <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
@@ -288,6 +293,36 @@
         };
 
         loadParticipants();
+
+        const exportData = () => {
+            const data = JSON.stringify(participants);
+            const blob = new Blob([data], {
+                type: 'application/json'
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'raffler-data.json';
+            a.click();
+        };
+
+        const importData = () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.addEventListener('load', (event) => {
+                    const data = JSON.parse(event.target.result);
+                    for (const participant of data) {
+                        addParticipant(participant.name, participant.entries);
+                    }
+                });
+                reader.readAsText(file);
+            });
+            input.click();
+        }
     </script>
 </body>
 
