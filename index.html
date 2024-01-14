@@ -234,15 +234,37 @@
             participants.push(participant);
             nameInput.value = '';
 
-            const template = document.querySelector('#list-item-template');
-            const listItem = template.content.cloneNode(true);
-            const listGroupItem = listItem.querySelector('.list-group-item');
-            listGroupItem.querySelector('#name').innerText = name;
-            listGroupItem.querySelector('input').value = entries;
+            participants.sort((a, b) => {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                else if (a.name > b.name) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            });
 
-            list.appendChild(listItem);
+            renderList();
             saveParticipants();
             console.log(participants);
+        };
+
+        const renderList = () => {
+            list.innerHTML = '';
+            for (const participant of participants) {
+                renderListItem(participant);
+            }
+        };
+
+        const renderListItem = (participant) => {
+            const listItem = document.querySelector('#list-item-template').content.cloneNode(true);
+            const name = listItem.querySelector('#name');
+            name.innerText = participant.name;
+            const entriesInput = listItem.querySelector('input');
+            entriesInput.value = participant.entries;
+            list.appendChild(listItem);
         };
 
         const resetPrompt = () => {
