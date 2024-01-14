@@ -214,10 +214,10 @@
         }
 
         const addParticipant = (name = null, entries = 1) => {
-            name = name.trim();
             if (name === null) {
                 name = nameInput.value;
             }
+            name = name.trim();
             if (name === '') {
                 alert('Please enter a name.');
                 return;
