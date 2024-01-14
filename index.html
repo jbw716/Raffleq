@@ -136,7 +136,7 @@
                                 <input type="number" class="form-control" value="0" onchange="changeEntry(event)">
                                 <button id="add" class="btn btn-success" onclick="addEntry(event)">+</button>
                             </div>
-                            <button id="delete" class="btn btn-danger" onclick="deleteParent(event)">Delete</button>
+                            <button id="delete" class="btn btn-danger" onclick="deleteListItem(event)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -159,18 +159,14 @@
             }
         });
 
-        const deleteParent = (event) => {
+        const deleteListItem = (event) => {
             const button = event.target;
-            const parent = button.parentElement;
-            const grandParent = parent.parentElement;
-            const greatGrandParent = grandParent.parentElement;
-            const name = greatGrandParent.querySelector('#name').innerText;
-            console.log(name);
+            const li = button.parentElement.parentElement.parentElement.parentElement.parentElement;
+            const name = li.querySelector('#name').innerText;
             if (confirm(`Are you sure you want to remove ${name}?`)) {
                 const index = participants.findIndex((item) => item.name === name);
                 participants.splice(index, 1);
-                const greatGreatGrandParent = greatGrandParent.parentElement;
-                greatGreatGrandParent.parentElement.remove();
+                li.remove();
                 saveParticipants();
                 console.log(participants);
             }
@@ -178,15 +174,12 @@
 
         const subtractEntry = (event) => {
             const button = event.target;
-            const parent = button.parentElement;
-            const grandParent = parent.parentElement;
-            const greatGrandParent = grandParent.parentElement;
-            const greatGreatGrandParent = greatGrandParent.parentElement;
-            const name = greatGreatGrandParent.querySelector('#name').innerText;
+            const row = button.parentElement.parentElement.parentElement.parentElement;
+            const name = row.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             if (participants[index].entries > 0) {
                 participants[index].entries--;
-                parent.querySelector('input').value = participants[index].entries;
+                row.querySelector('input').value = participants[index].entries;
                 saveParticipants();
                 console.log(participants);
             }
@@ -194,25 +187,19 @@
 
         const addEntry = (event) => {
             const button = event.target;
-            const parent = button.parentElement;
-            const grandParent = parent.parentElement;
-            const greatGrandParent = grandParent.parentElement;
-            const greatGreatGrandParent = greatGrandParent.parentElement;
-            const name = greatGreatGrandParent.querySelector('#name').innerText;
+            const row = button.parentElement.parentElement.parentElement.parentElement;
+            const name = row.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries++;
-            parent.querySelector('input').value = participants[index].entries;
+            row.querySelector('input').value = participants[index].entries;
             saveParticipants();
             console.log(participants);
         }
 
         const changeEntry = (event) => {
             const input = event.target;
-            const parent = input.parentElement;
-            const grandParent = parent.parentElement;
-            const greatGrandParent = grandParent.parentElement;
-            const greatGreatGrandParent = greatGrandParent.parentElement;
-            const name = greatGreatGrandParent.querySelector('#name').innerText;
+            const row = input.parentElement.parentElement.parentElement.parentElement;
+            const name = row.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries = parseInt(input.value);
             saveParticipants();
@@ -319,22 +306,6 @@
             });
         }
 
-        const saveParticipants = () => {
-            localStorage.setItem('participants', JSON.stringify(participants));
-        };
-
-        const loadParticipants = () => {
-            const participantsJSON = localStorage.getItem('participants');
-            if (participantsJSON !== null) {
-                const participantsArray = JSON.parse(participantsJSON);
-                for (const participant of participantsArray) {
-                    addParticipant(participant.name, participant.entries);
-                }
-            }
-        };
-
-        loadParticipants();
-
         const exportData = () => {
             const data = JSON.stringify(participants);
             const blob = new Blob([data], {
@@ -364,6 +335,22 @@
             });
             input.click();
         }
+
+        const saveParticipants = () => {
+            localStorage.setItem('participants', JSON.stringify(participants));
+        };
+
+        const loadParticipants = () => {
+            const participantsJSON = localStorage.getItem('participants');
+            if (participantsJSON !== null) {
+                const participantsArray = JSON.parse(participantsJSON);
+                for (const participant of participantsArray) {
+                    addParticipant(participant.name, participant.entries);
+                }
+            }
+        };
+
+        loadParticipants();
     </script>
 </body>
 
