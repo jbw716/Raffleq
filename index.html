@@ -263,7 +263,7 @@
                         break;
                     }
                 }
-                // Delay at 0 is 0ms and delay at 49 is 500ms.
+                // Exponential algorithm so that delay at 0 is 0ms and delay at 49 is 500ms.
                 const delay = Math.pow(1.1352, i);
                 setTimeout(resolve, delay);
             }).then(() => {
