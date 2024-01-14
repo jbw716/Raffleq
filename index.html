@@ -141,7 +141,6 @@
                     </div>
                 </div>
             </div>
-            </div>
         </li>
     </template>
 
@@ -164,11 +163,14 @@
             const button = event.target;
             const parent = button.parentElement;
             const grandParent = parent.parentElement;
-            const name = grandParent.querySelector('#name').innerText;
+            const greatGrandParent = grandParent.parentElement;
+            const name = greatGrandParent.querySelector('#name').innerText;
+            console.log(name);
             if (confirm(`Are you sure you want to remove ${name}?`)) {
                 const index = participants.findIndex((item) => item.name === name);
                 participants.splice(index, 1);
-                grandParent.remove();
+                const greatGreatGrandParent = greatGrandParent.parentElement;
+                greatGreatGrandParent.parentElement.remove();
                 saveParticipants();
                 console.log(participants);
             }
@@ -179,7 +181,8 @@
             const parent = button.parentElement;
             const grandParent = parent.parentElement;
             const greatGrandParent = grandParent.parentElement;
-            const name = greatGrandParent.querySelector('#name').innerText;
+            const greatGreatGrandParent = greatGrandParent.parentElement;
+            const name = greatGreatGrandParent.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             if (participants[index].entries > 0) {
                 participants[index].entries--;
@@ -194,7 +197,8 @@
             const parent = button.parentElement;
             const grandParent = parent.parentElement;
             const greatGrandParent = grandParent.parentElement;
-            const name = greatGrandParent.querySelector('#name').innerText;
+            const greatGreatGrandParent = greatGrandParent.parentElement;
+            const name = greatGreatGrandParent.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries++;
             parent.querySelector('input').value = participants[index].entries;
@@ -207,7 +211,8 @@
             const parent = input.parentElement;
             const grandParent = parent.parentElement;
             const greatGrandParent = grandParent.parentElement;
-            const name = greatGrandParent.querySelector('#name').innerText;
+            const greatGreatGrandParent = greatGrandParent.parentElement;
+            const name = greatGreatGrandParent.querySelector('#name').innerText;
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries = parseInt(input.value);
             saveParticipants();
