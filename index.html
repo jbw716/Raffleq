@@ -38,17 +38,50 @@
     <nav class="flex-0-0-auto navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
-                <div class="navbar-brand text-light">Raffler</div>
-                <a href="https://github.com/jbw716/Raffler" target="_blank" rel="noopener"
-                    class="m-0 signal_cellular_connected_no_internet_4_bar fs-4 text-light bi bi-github"></a>
-                <a class="ms-4" href="https://www.buymeacoffee.com/pjweaver" target="_blank">
-                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
-                        style="height: 40px !important;"></a>
+                <div class="navbar-brand text-light me-1">Raffler</div>
+                <button type="button" href="https://github.com/jbw716/Raffler" target="_blank" rel="noopener"
+                    class="m-0 p-2 fs-4 btn btn-primary">
+                    <i class="bi bi-github"></i>
+                </button>
+                <!-- Button trigger modal -->
+                <button type="button" class="m-0 p-2 fs-4 btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#buyMeACoffeeModal">
+                    <i class="bi bi-cup-hot-fill"></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="buyMeACoffeeModal" tabindex="-1" aria-labelledby="buyMeACoffeeModal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Buy me a coffee!</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Thank you for using Raffler!
+                                If you find this tool useful, please consider buying me a coffee.
+                                I would greatly appreciate it!
+                                <div class="d-flex justify-content-center mt-3">
+                                    <script type="text/javascript"
+                                        src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+                                        data-name="bmc-button" data-slug="pjweaver" data-color="#FFDD00" data-emoji=""
+                                        data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000"
+                                        data-font-color="#000000" data-coffee-color="#ffffff"></script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-light me-2" type="button" onclick="resetEntries()">Reset
-                    Entries</button>
-                <button class="btn btn-danger" type="button" onclick="resetRaffle()">Reset</button>
+                <button class="btn btn-outline-light me-2" type="button" onclick="resetEntries()">
+                    Reset Entries
+                </button>
+                <button class="btn btn-danger" type="button" onclick="resetRaffle()">
+                    Reset
+                </button>
             </div>
         </div>
     </nav>
@@ -75,10 +108,8 @@
                 <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a winner</button>
             </div>
         </div>
-        <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
-            <div class="col" id="winner">
-
-            </div>
+        <div class="flex-0-0-auto row mb-3 justify-content-center text-center d-none">
+            <div class="col" id="winner"></div>
         </div>
         <div class="flex-1-1-100 row justify-content-center overflow-scroll">
             <div class="col">
@@ -235,23 +266,25 @@
             }
         };
 
-        const pickAnInstantWinner = () => {
-            const totalEntries = participants.reduce((total, participant) => {
-                return total + participant.entries;
-            }, 0);
-            const winningNumber = Math.floor(Math.random() * totalEntries);
-            let currentTotal = 0;
-            for (const participant of participants) {
-                currentTotal += participant.entries;
-                if (currentTotal > winningNumber) {
-                    alert(`${participant.name} is the winner!`);
-                    break;
-                }
-            }
-        }
+        // const pickAnInstantWinner = () => {
+        //     const totalEntries = participants.reduce((total, participant) => {
+        //         return total + participant.entries;
+        //     }, 0);
+        //     const winningNumber = Math.floor(Math.random() * totalEntries);
+        //     let currentTotal = 0;
+        //     for (const participant of participants) {
+        //         currentTotal += participant.entries;
+        //         if (currentTotal > winningNumber) {
+        //             alert(`${participant.name} is the winner!`);
+        //             break;
+        //         }
+        //     }
+        // }
 
         const pickAScrollingWinner = (i = 0) => {
             const winner = document.querySelector('#winner');
+            winner.parentElement.classList.remove('d-none');
+            console.log(winner.class)
             winner.style.color = 'black';
             new Promise(resolve => {
                 const totalEntries = participants.reduce((total, participant) => {
