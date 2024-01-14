@@ -304,7 +304,11 @@
 
         const pickAScrollingWinner = (i = 0) => {
             disableAllButtonsAndInputs();
-            // if all entries are 0, show alert and return
+            if (participants.length === 0) {
+                alert('Please add some participants to pick a winner.');
+                enableAllButtonsAndInputs();
+                return;
+            }
             if (participants.every((participant) => participant.entries === 0)) {
                 alert('All entries are 0.');
                 enableAllButtonsAndInputs();
