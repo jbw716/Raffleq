@@ -243,8 +243,9 @@
         }
 
         const pickAScrollingWinner = (i = 0) => {
-            setTimeout(() => {
-                console.log(i * 100);
+            const winner = document.querySelector('#winner');
+            winner.style.color = 'black';
+            new Promise(resolve => {
                 const totalEntries = participants.reduce((total, participant) => {
                     return total + participant.entries;
                 }, 0);
@@ -253,20 +254,22 @@
                 for (const participant of participants) {
                     currentTotal += participant.entries;
                     if (currentTotal > winningNumber) {
-                        const winner = document.querySelector('#winner');
                         winner.innerText = participant.name;
-                        if (i === 99) {
+                        if (i === 49) {
                             winner.style.color = 'green';
                             setTimeout(() => alert(`${participant.name} is the winner!`));
+                            resolve();
                         }
                         break;
                     }
                 }
-                if (i < 99) {
+                const delay = Math.pow(1.1352, i);
+                setTimeout(resolve, delay);
+            }).then(() => {
+                if (i < 49) {
                     pickAScrollingWinner(i + 1);
                 }
-            }, i);
-
+            });
         }
 
         const saveParticipants = () => {
