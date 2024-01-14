@@ -273,7 +273,30 @@
         //     }
         // }
 
+        const disableAllButtonsAndInputs = () => {
+            const buttons = document.querySelectorAll('button');
+            for (const button of buttons) {
+                button.disabled = true;
+            }
+            const inputs = document.querySelectorAll('input');
+            for (const input of inputs) {
+                input.disabled = true;
+            }
+        }
+
+        const enableAllButtonsAndInputs = () => {
+            const buttons = document.querySelectorAll('button');
+            for (const button of buttons) {
+                button.disabled = false;
+            }
+            const inputs = document.querySelectorAll('input');
+            for (const input of inputs) {
+                input.disabled = false;
+            }
+        }
+
         const pickAScrollingWinner = (i = 0) => {
+            disableAllButtonsAndInputs();
             // if all entries are 0, show alert and return
             if (participants.every((participant) => participant.entries === 0)) {
                 alert('All entries are 0.');
@@ -307,6 +330,9 @@
             }).then(() => {
                 if (i < 49) {
                     pickAScrollingWinner(i + 1);
+                }
+                else {
+                    enableAllButtonsAndInputs();
                 }
             });
         }
