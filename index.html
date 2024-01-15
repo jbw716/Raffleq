@@ -246,25 +246,48 @@
                 }
             });
 
-            renderList();
+            const index = participants.findIndex((item) => item.name === name);
+            renderListItem(index);
+
+            // renderList();
             saveParticipants();
             console.log(participants);
         };
 
-        const renderList = () => {
-            list.innerHTML = '';
-            for (const participant of participants) {
-                renderListItem(participant);
-            }
-        };
+        // const renderList = () => {
+        //     list.innerHTML = '';
+        //     for (const participant of participants) {
+        //         renderListItem(participant);
+        //     }
+        // };
 
-        const renderListItem = (participant) => {
+        // const renderListItem = (participant) => {
+        //     const listItem = document.querySelector('#list-item-template').content.cloneNode(true);
+        //     const liElement = listItem.querySelector('.list-group-item');
+        //     const name = listItem.querySelector('#name');
+        //     name.innerText = participant.name;
+        //     liElement.id = participant.name;
+        //     const entriesInput = listItem.querySelector('input');
+        //     entriesInput.value = participant.entries;
+        //     list.appendChild(listItem);
+        // };
+
+        const renderListItem = (index) => {
+            const participant = participants[index];
+            const previousParticipant = participants[index - 1];
             const listItem = document.querySelector('#list-item-template').content.cloneNode(true);
+            const liElement = listItem.querySelector('.list-group-item');
             const name = listItem.querySelector('#name');
             name.innerText = participant.name;
+            liElement.id = participant.name;
             const entriesInput = listItem.querySelector('input');
             entriesInput.value = participant.entries;
-            list.appendChild(listItem);
+            if (!previousParticipant) {
+                list.prepend(listItem);
+                return;
+            }
+            const previousListItem = list.querySelector(`#${previousParticipant.name}`);
+            previousListItem.parentNode.insertBefore(listItem, previousListItem.nextSibling);
         };
 
         const resetPrompt = () => {
