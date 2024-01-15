@@ -133,12 +133,18 @@
                     </div>
                     <div class="col-12 col-sm-8">
                         <div class="d-flex ms-auto" style="max-width: 25em;">
-                            <div class="input-group me-2">
+                            <!-- <div class="input-group me-2">
                                 <button id="subtract" class="btn btn-danger" onclick="subtractEntry(event)">-</button>
                                 <input type="number" class="form-control" value="0" onchange="changeEntry(event)">
                                 <button id="add" class="btn btn-success" onclick="addEntry(event)">+</button>
                             </div>
-                            <button id="delete" class="btn btn-danger" onclick="deleteListItem(event)">Delete</button>
+                            <button id="delete" class="btn btn-danger" onclick="deleteListItem(event)">Delete</button> -->
+                            <div class="input-group me-2">
+                                <button id="subtract" class="btn btn-danger">-</button>
+                                <input type="number" class="form-control" value="0">
+                                <button id="add" class="btn btn-success">+</button>
+                            </div>
+                            <button id="delete" class="btn btn-danger">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +158,7 @@
 
     <script>
         const openGitHubLink = () => {
-            window.open('https://github.com/jbw716/Raffler', '_blank', 'noopener,noreferrer');
+            const newWindow = window.open('https://github.com/jbw716/Raffler', '_blank', 'noopener,noreferrer');
             if (newWindow) newWindow.opener = null;
         };
 
@@ -166,10 +172,55 @@
             }
         });
 
-        const deleteListItem = (event) => {
-            const button = event.target;
-            const li = button.parentElement.parentElement.parentElement.parentElement.parentElement;
-            const name = li.querySelector('#name').innerText;
+        // const deleteListItem = (event) => {
+        //     const button = event.target;
+        //     const li = button.parentElement.parentElement.parentElement.parentElement.parentElement;
+        //     const name = li.querySelector('#name').innerText;
+        //     if (confirm(`Are you sure you want to remove ${name}?`)) {
+        //         const index = participants.findIndex((item) => item.name === name);
+        //         participants.splice(index, 1);
+        //         li.remove();
+        //         saveParticipants();
+        //         console.log(participants);
+        //     }
+        // }
+
+        // const subtractEntry = (event) => {
+        //     const button = event.target;
+        //     const row = button.parentElement.parentElement.parentElement.parentElement;
+        //     const name = row.querySelector('#name').innerText;
+        //     const index = participants.findIndex((item) => item.name === name);
+        //     if (participants[index].entries > 0) {
+        //         participants[index].entries--;
+        //         row.querySelector('input').value = participants[index].entries;
+        //         saveParticipants();
+        //         console.log(participants);
+        //     }
+        // }
+
+        // const addEntry = (event) => {
+        //     const button = event.target;
+        //     const row = button.parentElement.parentElement.parentElement.parentElement;
+        //     const name = row.querySelector('#name').innerText;
+        //     const index = participants.findIndex((item) => item.name === name);
+        //     participants[index].entries++;
+        //     row.querySelector('input').value = participants[index].entries;
+        //     saveParticipants();
+        //     console.log(participants);
+        // }
+
+        // const changeEntry = (event) => {
+        //     const input = event.target;
+        //     const row = input.parentElement.parentElement.parentElement.parentElement;
+        //     const name = row.querySelector('#name').innerText;
+        //     const index = participants.findIndex((item) => item.name === name);
+        //     participants[index].entries = parseInt(input.value);
+        //     saveParticipants();
+        //     console.log(participants);
+        // }
+
+        const deleteListItemByName = (name) => {
+            const li = list.querySelector(`#${name}`);
             if (confirm(`Are you sure you want to remove ${name}?`)) {
                 const index = participants.findIndex((item) => item.name === name);
                 participants.splice(index, 1);
@@ -179,34 +230,28 @@
             }
         }
 
-        const subtractEntry = (event) => {
-            const button = event.target;
-            const row = button.parentElement.parentElement.parentElement.parentElement;
-            const name = row.querySelector('#name').innerText;
+        const subtractEntryByName = (name) => {
+            const li = list.querySelector(`#${name}`);
             const index = participants.findIndex((item) => item.name === name);
             if (participants[index].entries > 0) {
                 participants[index].entries--;
-                row.querySelector('input').value = participants[index].entries;
+                li.querySelector('input').value = participants[index].entries;
                 saveParticipants();
                 console.log(participants);
             }
         }
 
-        const addEntry = (event) => {
-            const button = event.target;
-            const row = button.parentElement.parentElement.parentElement.parentElement;
-            const name = row.querySelector('#name').innerText;
+        const addEntryByName = (name) => {
+            const li = list.querySelector(`#${name}`);
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries++;
-            row.querySelector('input').value = participants[index].entries;
+            li.querySelector('input').value = participants[index].entries;
             saveParticipants();
             console.log(participants);
         }
 
-        const changeEntry = (event) => {
-            const input = event.target;
-            const row = input.parentElement.parentElement.parentElement.parentElement;
-            const name = row.querySelector('#name').innerText;
+        const changeEntryByName = (name) => {
+            const input = list.querySelector(`#${name} input`);
             const index = participants.findIndex((item) => item.name === name);
             participants[index].entries = parseInt(input.value);
             saveParticipants();
@@ -262,12 +307,25 @@
             const name = listItem.querySelector('#name');
             name.innerText = participant.name;
             liElement.id = participant.name;
+
             const entriesInput = listItem.querySelector('input');
             entriesInput.value = participant.entries;
+            entriesInput.onchange = () => changeEntryByName(participant.name);
+
+            const deleteButton = listItem.querySelector('#delete');
+            deleteButton.onclick = () => deleteListItemByName(participant.name);
+
+            const subtractButton = listItem.querySelector('#subtract');
+            subtractButton.onclick = () => subtractEntryByName(participant.name);
+
+            const addButton = listItem.querySelector('#add');
+            addButton.onclick = () => addEntryByName(participant.name);
+
             if (!previousParticipant) {
                 list.prepend(listItem);
                 return;
             }
+
             const previousListItem = list.querySelector(`#${previousParticipant.name}`);
             previousListItem.parentElement.insertBefore(listItem, previousListItem.nextSibling);
         };
