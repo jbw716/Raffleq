@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-        .col {
+        .list-group {
             max-width: 750px;
         }
 
-        .col>.input-group {
+        #name-input-group {
             max-width: 500px;
         }
 
@@ -63,7 +63,18 @@
                             </div>
                             <div class="modal-body">
                                 Thank you for using Raffler!
-                                If you find this tool useful, please consider buying me a coffee.
+                                <br />
+                                <br />
+                                This tool is developed by
+                                <a class="text-primary text-decoration-none" href="https://pjweaver.me" target="_blank"
+                                    rel="noopener noreferrer">
+                                    Phillip "Jeremiah" Weaver
+                                </a>
+                                as a free tool.
+                                <br />
+                                <br />
+                                If you'd like to show your appreciation, please consider buying me a coffee.
+                                <br />
                                 I would greatly appreciate it!
                                 <div class="d-flex justify-content-center mt-3">
                                     <script type="text/javascript"
@@ -87,30 +98,30 @@
             </div>
         </div>
     </nav>
-    <div class="flex-1-1-100 h-100 mt-3 d-flex flex-column overflow-hidden">
+    <div class="flex-1-1-100 h-100 mt-3 d-flex flex-column overflow-hidden align-items-center">
 
-        <div class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center">
-            <button class="btn btn-outline-primary me-2" type="button" onclick="importData()">Import</button>
-            <button class="btn btn-outline-primary me-2" type="button" onclick="exportData()">Export</button>
+        <div class="flex-0-0-auto mb-3 ps-2 pe-2 text-center">
+            <button class="btn btn-outline-primary me-1" type="button" onclick="importData()">Import</button>
+            <button class="btn btn-outline-primary ms-1" type="button" onclick="exportData()">Export</button>
         </div>
 
-        <div class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center input-group mx-auto">
+        <div id="name-input-group" class="flex-0-0-auto mb-3 ps-2 pe-2 text-center input-group mx-auto">
             <input id="name-input" type="text" class="form-control" placeholder="Name" aria-label="Name"
                 aria-describedby="add-button">
             <button class="btn btn-outline-secondary" type="button" id="add-button"
                 onclick="addParticipant()">Add</button>
         </div>
 
-        <div class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center">
+        <div class="flex-0-0-auto mb-3 ps-2 pe-2 text-center">
             <!-- <button class="btn btn-primary" type="button" onclick="pickAnInstantWinner()">Pick a winner</button> -->
             <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a winner</button>
         </div>
 
-        <div id="winner" class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center d-none">
+        <div id="winner" class="flex-0-0-auto mb-3 ps-2 pe-2 text-center d-none">
         </div>
 
-        <div class="flex-1-1-100 ps-2 pe-2 justify-content-center overflow-scroll">
-            <ul class="list-group">
+        <div class="flex-1-1-100 w-100 ps-2 pe-2 overflow-scroll">
+            <ul class="list-group m-auto">
                 <!-- List items will be dynamically added here -->
             </ul>
         </div>
@@ -417,8 +428,7 @@
                 return;
             }
             const winner = document.querySelector('#winner');
-            winner.parentElement.classList.remove('d-none');
-            console.log(winner.class)
+            winner.classList.remove('d-none');
             winner.style.color = 'black';
             new Promise(resolve => {
                 const totalEntries = participants.reduce((total, participant) => {
