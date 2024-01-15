@@ -87,38 +87,32 @@
             </div>
         </div>
     </nav>
-    <div class="flex-1-1-100 h-100 container-fluid m-0 mt-4 d-flex flex-column overflow-hidden">
-        <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
-            <div class="col text-center">
-                <button class="btn btn-outline-primary me-2" type="button" onclick="importData()">Import</button>
-                <button class="btn btn-outline-primary me-2" type="button" onclick="exportData()">Export</button>
-            </div>
+    <div class="flex-1-1-100 h-100 mt-3 d-flex flex-column overflow-hidden">
+
+        <div class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center">
+            <button class="btn btn-outline-primary me-2" type="button" onclick="importData()">Import</button>
+            <button class="btn btn-outline-primary me-2" type="button" onclick="exportData()">Export</button>
         </div>
-        <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
-            <div class="col">
-                <div class="input-group mx-auto">
-                    <input id="name-input" type="text" class="form-control" placeholder="Name" aria-label="Name"
-                        aria-describedby="add-button">
-                    <button class="btn btn-outline-secondary" type="button" id="add-button"
-                        onclick="addParticipant()">Add</button>
-                </div>
-            </div>
+
+        <div class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center input-group mx-auto">
+            <input id="name-input" type="text" class="form-control" placeholder="Name" aria-label="Name"
+                aria-describedby="add-button">
+            <button class="btn btn-outline-secondary" type="button" id="add-button"
+                onclick="addParticipant()">Add</button>
         </div>
-        <div class="flex-0-0-auto row mb-3 justify-content-center text-center">
-            <div class="col">
-                <!-- <button class="btn btn-primary" type="button" onclick="pickAnInstantWinner()">Pick a winner</button> -->
-                <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a winner</button>
-            </div>
+
+        <div class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center">
+            <!-- <button class="btn btn-primary" type="button" onclick="pickAnInstantWinner()">Pick a winner</button> -->
+            <button class="btn btn-primary" type="button" onclick="pickAScrollingWinner()">Pick a winner</button>
         </div>
-        <div class="flex-0-0-auto row mb-3 justify-content-center text-center d-none">
-            <div class="col" id="winner"></div>
+
+        <div id="winner" class="flex-0-0-auto mb-3 ps-2 pe-2 justify-content-center text-center d-none">
         </div>
-        <div class="flex-1-1-100 row justify-content-center overflow-scroll">
-            <div class="col">
-                <ul class="list-group">
-                    <!-- List items will be dynamically added here -->
-                </ul>
-            </div>
+
+        <div class="flex-1-1-100 ps-2 pe-2 justify-content-center overflow-scroll">
+            <ul class="list-group">
+                <!-- List items will be dynamically added here -->
+            </ul>
         </div>
     </div>
 
