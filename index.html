@@ -269,7 +269,7 @@
                 return;
             }
             const previousListItem = list.querySelector(`#${previousParticipant.name}`);
-            previousListItem.parentNode.insertBefore(listItem, previousListItem.nextSibling);
+            previousListItem.parentElement.insertBefore(listItem, previousListItem.nextSibling);
         };
 
         // const renderList = () => {
