@@ -163,6 +163,12 @@
     <script src="/bootstrap/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+        
         const openGitHubLink = () => {
             const newWindow = window.open('https://github.com/jbw716/Raffler', '_blank', 'noopener,noreferrer');
             if (newWindow) newWindow.opener = null;
