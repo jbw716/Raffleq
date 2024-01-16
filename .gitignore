@@ -1,1 +1,4 @@
 .DS_Store
+service-worker.js*
+workbox-*.js*
+!workbox-config.js
