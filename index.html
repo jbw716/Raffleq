@@ -272,6 +272,7 @@
 
         const deleteListItemById = (id) => {
             const li = list.querySelector(`#participant-${id}`);
+            const name = li.querySelector('#name').innerText;
             if (confirm(`Are you sure you want to remove ${name}?`)) {
                 const index = participants.findIndex((item) => item.id === id);
                 participants.splice(index, 1);
